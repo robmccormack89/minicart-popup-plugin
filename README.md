@@ -1,3 +1,3 @@
-# Direct to Checkout
+# Minicart & popup modal for Woocommerce
 
-Allows for an optimized woocommerce chekout experience. Dont't forget to disable the basket page in Woocommerce Settings -> Advanced.
+A custom woocommerce minicart with a uikit popup modal. Toggle the modal via #MiniCartModal.
