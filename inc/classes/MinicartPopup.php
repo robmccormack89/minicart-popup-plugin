@@ -19,8 +19,10 @@ class MinicartPopup extends Timber {
     // enqueue plugin assets
     add_action('wp_enqueue_scripts', array($this, 'minicart_popup_assets'));
     
-    add_action('plugins_loaded', array($this, 'on_plugins_loaded'));
+    // add_action('init', array($this, 'minicart_popup_plugins_loaded'));
     add_action('rmcc_after_header', 'custom_minicart_popup', 10);
+    
+    add_filter('wc_get_template', array($this, 'wc_get_template'), 10, 5); 
   }
   
   public function minicart_popup_assets() {
@@ -36,40 +38,28 @@ class MinicartPopup extends Timber {
   }
 
   public function add_to_context($context) {
-    $context['plugin_url'] = MINICART_POPUP_URL;
     return $context;    
   }
   
-  public function on_plugins_loaded() {
-    // allow plugin's woo templates to override theme's
-    add_filter('wc_get_template', array($this, 'wc_get_template'), 10, 5); 
-  }
-  
   public function wc_get_template($located, $template_name, $args, $template_path, $default_path) {
-
+    // if defult path deosnt exists, set it
     if (!$default_path) {
       global $woocommerce;
   		$default_path = $woocommerce->plugin_path() . '/templates/';
   	}
+
+    $plugin_path = MINICART_POPUP_PATH.'woocommerce/'.$template_name;
     
-    $plugin_path = MINICART_POPUP_PATH.'woocommerce/' . $template_name;
-    
-    $woo_path = $default_path . $template_name;
-    
-    $theme_path = get_stylesheet_directory() . '/woocommerce/' . $template_name;
-    
-    if(@file_exists($theme_path) && @file_exists($plugin_path)){
+    // if the file exists in current plugin, set located to that
+    if(@file_exists($plugin_path)) {
       $located = $plugin_path;
-    } elseif(@file_exists($theme_path) && !@file_exists($plugin_path)) {
-      $located = $theme_path;
-    } elseif(@file_exists($plugin_path) && !@file_exists($theme_path)) {
-      $located = $plugin_path;
-    } else {
-      $located = $woo_path;
+    } elseif(@file_exists($located) && !@file_exists($plugin_path)) {
+      $located = $located;
+    } elseif(!@file_exists($located) && !@file_exists($plugin_path) && @file_exists($default_path)) {
+      $located = $default_path;
     }
-    
+
     return $located;
-    
   }
 
 }
