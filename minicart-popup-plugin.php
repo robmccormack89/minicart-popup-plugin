@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Minicart Popup
+Plugin Name: Minicart Popup for Woocommerce by RMcC
 Plugin URI: #
 Description: A custom woocommerce minicart with a uikit popup modal. Toggle the modal via #MiniCartModal.
 Version: 1.0.0
