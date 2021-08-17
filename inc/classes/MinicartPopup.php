@@ -56,6 +56,18 @@ class MinicartPopup extends Timber {
       'minicart-popup',
       MINICART_POPUP_URL . 'public/css/minicart-popup.css'
     );
+    
+    // enqueue wp jquery
+    wp_enqueue_script('jquery');
+    
+    // minicart-popup scripts; uses jquery
+    wp_enqueue_script(
+      'minicart-popup',
+      MINICART_POPUP_URL . 'public/js/minicart-popup.js',
+      'jquery',
+      '1.0.0',
+      true
+    );
   }
 
   public function add_to_twig($twig) { 
