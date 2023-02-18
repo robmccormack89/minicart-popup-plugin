@@ -26,8 +26,5 @@ defined( 'ABSPATH' ) || exit;
 **/
 
 $context = Timber::context();
-
-// get the cart object
 $context['cart'] = WC()->cart;
-
-Timber::render('minicart.twig', $context);
+Timber::render('mini-cart.twig', $context);

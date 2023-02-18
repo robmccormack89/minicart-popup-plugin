@@ -1,4 +1,4 @@
-# Copyright (C) 2021 minicart-popup
+# Copyright (C) 2023 minicart-popup
 # This file is distributed under the same license as the minicart-popup package.
 msgid ""
 msgstr ""
@@ -13,12 +13,22 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: views/temp/minicart.php:34
-msgctxt "Minicart"
+#: inc/functions.php:10
+msgctxt "View cart button text"
+msgid "View cart"
+msgstr ""
+
+#: inc/functions.php:14
+msgctxt "Checkout button text"
+msgid "Checkout"
+msgstr ""
+
+#: views/temp/mini-cart.php:35
+msgctxt "Remove item text"
 msgid "Remove this item"
 msgstr ""
 
-#: views/temp/minicart.php:102
-msgctxt "Minicart"
+#: views/temp/mini-cart.php:109
+msgctxt "No products text"
 msgid "No products in the cart."
 msgstr ""

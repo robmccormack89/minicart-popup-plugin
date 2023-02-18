@@ -12,31 +12,36 @@ class MinicartPopup extends Timber {
     add_action('plugins_loaded', array($this, 'plugin_timber_locations'));
     add_action('plugins_loaded', array($this, 'plugin_text_domain_init')); 
     add_action('wp_enqueue_scripts', array($this, 'plugin_enqueue_assets'));
-    
+
+    add_action('plugins_loaded', array($this, 'replace_minicart_buttons'));
     add_filter('wc_get_template', array($this, 'wc_get_template'), 10, 5); 
+    add_action('wp_body_open', 'custom_minicart_popup', 10);
     
-    add_action('rmcc_after_header', 'custom_minicart_popup', 10);
+  }
+
+  public function replace_minicart_buttons() {
+    remove_action('woocommerce_widget_shopping_cart_buttons', 'woocommerce_widget_shopping_cart_button_view_cart', 10 );
+    remove_action('woocommerce_widget_shopping_cart_buttons', 'woocommerce_widget_shopping_cart_proceed_to_checkout', 20 );
+    add_action( 'woocommerce_widget_shopping_cart_buttons', 'woo_widget_shopping_cart_button_view_cart', 10 );
+    add_action( 'woocommerce_widget_shopping_cart_buttons', 'woo_widget_shopping_cart_proceed_to_checkout', 20 );
   }
   
-  public function wc_get_template($located, $template_name, $args, $template_path, $default_path) {
-    // if defult path deosnt exists, set it
-    if (!$default_path) {
-      global $woocommerce;
-  		$default_path = $woocommerce->plugin_path() . '/templates/';
-  	}
+  public function wc_get_template($file, $template_name, $args, $template_path, $default_path) {
 
-    $plugin_path = MINICART_POPUP_PATH.'woocommerce/'.$template_name;
+    global $woocommerce; // for getting the woocommerce plugin_path
+
+    if (!$default_path) $default_path = $woocommerce->plugin_path() . '/templates/'; // if default_path not set, set it now
+    $plugin_path = MINICART_POPUP_PATH . 'woocommerce/' . $template_name; // set our plugin_path
+
+    // we wanna reset the logic when woocommerce is looking for php template-parts to use
+    // we wanna have it so our plugin's location takes precedence, then the original $file(theme?), then woocommerce templates folder
     
-    // if the file exists in current plugin, set located to that
-    if(@file_exists($plugin_path)) {
-      $located = $plugin_path;
-    } elseif(@file_exists($located) && !@file_exists($plugin_path)) {
-      $located = $located;
-    } elseif(!@file_exists($located) && !@file_exists($plugin_path) && @file_exists($default_path)) {
-      $located = $default_path;
-    }
+    // $file = $file;
+    if(@file_exists($plugin_path)) $file = $plugin_path;
+    if(!@file_exists($plugin_path) && @file_exists($file)) $file = $file;
+    if(!@file_exists($plugin_path) && !@file_exists($file) && @file_exists($default_path)) $file = $default_path;
 
-    return $located;
+    return $file;
   }
   
   public function plugin_timber_locations() {
@@ -57,9 +62,6 @@ class MinicartPopup extends Timber {
       MINICART_POPUP_URL . 'public/css/minicart-popup.css'
     );
     
-    // enqueue wp jquery
-    wp_enqueue_script('jquery');
-    
     // minicart-popup scripts; uses jquery
     wp_enqueue_script(
       'minicart-popup',
@@ -67,6 +69,25 @@ class MinicartPopup extends Timber {
       'jquery',
       '1.0.0',
       true
+    );
+
+    wp_enqueue_style(
+      'uikit',
+      'https://cdn.jsdelivr.net/npm/uikit@3.15.24/dist/css/uikit.min.css'
+    );
+    wp_enqueue_script(
+      'uikit',
+      'https://cdn.jsdelivr.net/npm/uikit@3.15.24/dist/js/uikit.min.js',
+      array(),
+      '3.15.24',
+      false
+    );
+    wp_enqueue_script(
+      'uikit-icons',
+      'https://cdn.jsdelivr.net/npm/uikit@3.15.24/dist/js/uikit-icons.min.js',
+      array(),
+      '3.15.24',
+      false
     );
   }
 

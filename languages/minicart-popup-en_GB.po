@@ -1,0 +1,44 @@
+# Copyright (C) 2023 minicart-popup
+# This file is distributed under the same license as the minicart-popup package.
+msgid ""
+msgstr ""
+"Project-Id-Version: minicart-popup\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:"
+"1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-18 22:06+0000\n"
+"PO-Revision-Date: 2023-02-18 22:06+0000\n"
+"Last-Translator: \n"
+"Language-Team: English (UK)\n"
+"Language: en_GB\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.3; wp-6.1.1"
+
+#: inc/functions.php:10
+msgctxt "View cart button text"
+msgid "View cart"
+msgstr ""
+
+#: inc/functions.php:14
+msgctxt "Checkout button text"
+msgid "Checkout"
+msgstr ""
+
+#: views/temp/mini-cart.php:35
+msgctxt "Remove item text"
+msgid "Remove this item"
+msgstr ""
+
+#: views/temp/mini-cart.php:109
+msgctxt "No products text"
+msgid "No products in the cart."
+msgstr ""
