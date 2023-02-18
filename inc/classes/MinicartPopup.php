@@ -13,13 +13,13 @@ class MinicartPopup extends Timber {
     add_action('plugins_loaded', array($this, 'plugin_text_domain_init')); 
     add_action('wp_enqueue_scripts', array($this, 'plugin_enqueue_assets'));
 
-    add_action('plugins_loaded', array($this, 'replace_minicart_buttons'));
+    add_action('plugins_loaded', array($this, 'woo_actions'));
     add_filter('wc_get_template', array($this, 'wc_get_template'), 10, 5); 
     add_action('wp_body_open', 'custom_minicart_popup', 10);
     
   }
 
-  public function replace_minicart_buttons() {
+  public function woo_actions() {
     remove_action('woocommerce_widget_shopping_cart_buttons', 'woocommerce_widget_shopping_cart_button_view_cart', 10 );
     remove_action('woocommerce_widget_shopping_cart_buttons', 'woocommerce_widget_shopping_cart_proceed_to_checkout', 20 );
     add_action( 'woocommerce_widget_shopping_cart_buttons', 'woo_widget_shopping_cart_button_view_cart', 10 );
